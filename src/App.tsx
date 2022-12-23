@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from "styled-components";
+import { useState } from "react";
+import theme from "./DesignElements/theme";
+import GlobalStyle from "./DesignElements/GlobalStyles";
+
+type ThemeProps = "ranger" | "bard";
+
+const Button = styled.button`
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.elements.btn};
+  color: ${(props) => props.theme.elements.btnTxt};
+`;
 
 function App() {
+  const [select, setSelect] = useState<ThemeProps>("bard");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <ThemeProvider theme={theme[select]}>
+        <GlobalStyle />
+        <Button
+          onClick={
+            select === "bard"
+              ? () => setSelect("ranger")
+              : () => setSelect("bard")
+          }
         >
-          Learn React
-        </a>
-      </header>
+          Click
+        </Button>
+      </ThemeProvider>
     </div>
   );
 }
