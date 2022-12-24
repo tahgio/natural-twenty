@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { ThemeFonts } from "../../types";
 
 const ResetStyle = `
   *,
@@ -47,9 +48,13 @@ const ResetStyle = `
 `;
 
 const GlobalStyle = createGlobalStyle`
+
   ${ResetStyle}
+
   body {
     background-color:  ${(props) => props.theme.elements.background.primary};
+    font-family: ${ThemeFonts.Hanken}, sans-serif;
+
   }
 `;
 

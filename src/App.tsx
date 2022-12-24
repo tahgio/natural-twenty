@@ -17,7 +17,7 @@ function App() {
       <SectionWrapper>
         <Sidebar />
         <Wrapper>
-          <Container>
+          <Container display="flex center center">
             <Button
               onClick={
                 select === ThemeProps.bard

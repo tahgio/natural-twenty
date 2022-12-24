@@ -1,4 +1,4 @@
-import { GlobalThemeObj, ThemeProps } from "../types";
+import { GlobalThemeObj, ThemeFonts, ThemeProps } from "../types";
 
 const theme: GlobalThemeObj = {
   [ThemeProps.ranger]: {
@@ -20,6 +20,7 @@ const theme: GlobalThemeObj = {
       secondary: "#abd1c6",
       tertiary: "#e16162",
     },
+    typo: ThemeFonts.Mulish,
   },
   [ThemeProps.bard]: {
     elements: {
@@ -37,6 +38,7 @@ const theme: GlobalThemeObj = {
       secondary: "#ff5470",
       tertiary: "#fde24f",
     },
+    typo: ThemeFonts.Montagu,
   },
 };
 

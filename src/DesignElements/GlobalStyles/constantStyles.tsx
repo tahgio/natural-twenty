@@ -1,11 +1,20 @@
+import { AppSizes } from "../../types";
+
 export const c = {
   sidebarWidth: "300px",
   space: {
-    sm: "8px",
-    md: "16px",
-    lg: "24px",
-    xl: "32px",
-    xxl: "48px",
+    sm: AppSizes.sm,
+    md: AppSizes.md,
+    lg: AppSizes.lg,
+    xl: AppSizes.xl,
+    xxl: AppSizes.xxl,
   },
-  radius: "6px",
+  typo: {
+    sm: "12px",
+    md: "16px",
+    lg: "20px",
+    xl: "24px",
+    xxl: "30px",
+  },
+  radius: "3px",
 };

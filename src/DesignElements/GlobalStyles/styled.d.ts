@@ -20,5 +20,6 @@ declare module "styled-components" {
       secondary: string;
       tertiary: string;
     };
+    typo: string;
   }
 }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { c } from "../GlobalStyles/constantStyles";
 
-export const SSidebar = styled.div`
+const SSidebar = styled.div`
   width: 300px;
   height: 100vh;
   background: ${(p) => p.theme.elements.background.secondary};
@@ -12,6 +12,16 @@ export const SSidebar = styled.div`
   box-shadow: ${(p) => p.theme.elements.shadow};
 `;
 
+const SideBarHeader = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: pink;
+`;
+
 export default function Sidebar() {
-  return <SSidebar></SSidebar>;
+  return (
+    <SSidebar>
+      <SideBarHeader />
+    </SSidebar>
+  );
 }
