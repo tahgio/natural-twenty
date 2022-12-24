@@ -1,37 +1,36 @@
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import theme from "./DesignElements/theme";
 import GlobalStyle from "./DesignElements/GlobalStyles";
-
-type ThemeProps = "ranger" | "bard";
-
-const Button = styled.button`
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.elements.btn};
-  color: ${(props) => props.theme.elements.btnTxt};
-`;
+import { Button } from "./DesignElements/Inputs/Button";
+import { ThemeProps } from "./types";
+import { Container } from "./DesignElements/Layout/Container";
+import { SectionWrapper, Wrapper } from "./DesignElements/Layout/Wrapper";
+import Sidebar from "./DesignElements/Components/Sidebar";
 
 function App() {
-  const [select, setSelect] = useState<ThemeProps>("bard");
+  const [select, setSelect] = useState<ThemeProps>(ThemeProps.ranger);
 
   return (
-    <div>
-      <ThemeProvider theme={theme[select]}>
-        <GlobalStyle />
-        <Button
-          onClick={
-            select === "bard"
-              ? () => setSelect("ranger")
-              : () => setSelect("bard")
-          }
-        >
-          Click
-        </Button>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme[select]}>
+      <GlobalStyle />
+      <SectionWrapper>
+        <Sidebar />
+        <Wrapper>
+          <Container>
+            <Button
+              onClick={
+                select === ThemeProps.bard
+                  ? () => setSelect(ThemeProps.ranger)
+                  : () => setSelect(ThemeProps.bard)
+              }
+            >
+              Click
+            </Button>
+          </Container>
+        </Wrapper>
+      </SectionWrapper>
+    </ThemeProvider>
   );
 }
 

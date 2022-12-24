@@ -1,18 +1,17 @@
-import { Theme } from "../types";
-
-interface GlobalThemeObj {
-  ranger: Theme;
-  bard: Theme;
-}
+import { GlobalThemeObj, ThemeProps } from "../types";
 
 const theme: GlobalThemeObj = {
-  ranger: {
+  [ThemeProps.ranger]: {
     elements: {
-      background: "#004643",
+      background: {
+        primary: "#004643",
+        secondary: "#abd1c6",
+      },
       headline: "#fffffe",
       paragraph: "#abd1c6",
       btn: "#f9bc60",
       btnTxt: "#001e1d",
+      shadow: "6px 0px 12px 0px rgba(0, 0, 0, 0.5)",
     },
     illustration: {
       stroke: "#001e1d",
@@ -22,20 +21,21 @@ const theme: GlobalThemeObj = {
       tertiary: "#e16162",
     },
   },
-  bard: {
+  [ThemeProps.bard]: {
     elements: {
-      background: "#fffffe",
-      headline: "#181818",
+      background: { primary: "#fffffe", secondary: "#f2f4f6" },
+      headline: "#00214d",
       paragraph: "#2e2e2e6",
-      btn: "#4fc4cf",
-      btnTxt: "#181818",
+      btn: "#00ebc7",
+      btnTxt: "#00214d",
+      shadow: "3px 0px 10px 0px rgba(0, 33, 77, 0.3)",
     },
     illustration: {
-      stroke: "#181818",
-      main: "#f2eef5",
-      highlight: "#4fc4cf",
-      secondary: "#994ff3",
-      tertiary: "#fbdd74",
+      stroke: "#00214d",
+      main: "#fffffe",
+      highlight: "#00ebc7",
+      secondary: "#ff5470",
+      tertiary: "#fde24f",
     },
   },
 };

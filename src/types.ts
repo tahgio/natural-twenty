@@ -1,11 +1,15 @@
 //----- Theme -----//
 export interface Theme {
   elements: {
-    background: string;
+    background: {
+      primary: string;
+      secondary: string;
+    };
     headline: string;
     paragraph: string;
     btn: string;
     btnTxt: string;
+    shadow: string;
   };
   illustration: {
     stroke: string;
@@ -15,3 +19,12 @@ export interface Theme {
     tertiary: string;
   };
 }
+
+export enum ThemeProps {
+  ranger,
+  bard,
+}
+
+export type GlobalThemeObj = {
+  [key in ThemeProps]: Theme;
+};

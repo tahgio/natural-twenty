@@ -48,9 +48,8 @@ const ResetStyle = `
 
 const GlobalStyle = createGlobalStyle`
   ${ResetStyle}
-
   body {
-    background-color:  ${(props) => props.theme.elements.background};
+    background-color:  ${(props) => props.theme.elements.background.primary};
   }
 `;
 
