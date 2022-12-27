@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { ThemeFonts } from "../../types";
+import { assertNever, ThemeFonts } from "../../types";
 
 type TextProps = {
-  variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span";
-  text: string;
+  variant: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span" | "logo";
+  text?: string;
   secondary: boolean;
 };
 
@@ -16,6 +16,7 @@ const Title = styled.span<TextStylesProps>`
   color: ${(p) => p.theme.elements[p.colorCode].headline};
   font-weight: 600;
 `;
+
 const SubTitle = styled.span<TextStylesProps>`
   font-family: ${(p) => p.theme.typo};
   color: ${(p) => p.theme.elements[p.colorCode].paragraph};
@@ -26,6 +27,14 @@ const Paragraph = styled.span<TextStylesProps>`
   font-family: ${ThemeFonts.Hanken}, sans-serif;
   color: ${(p) => p.theme.elements[p.colorCode].paragraph};
   font-weight: 400;
+`;
+
+const LogoTitle = styled.span<TextStylesProps>`
+  font-family: ${ThemeFonts.Unbounded}, sans-serif;
+  color: ${(p) => p.theme.elements[p.colorCode].headline};
+  font-weight: 800;
+  font-size: 45px;
+  line-height: 35px;
 `;
 
 export default function Typo({ variant, text, secondary }: TextProps) {
@@ -51,12 +60,19 @@ export default function Typo({ variant, text, secondary }: TextProps) {
           {text}
         </Paragraph>
       );
-
-    default:
+    case "span":
       return (
         <Paragraph colorCode={secondary ? "secondary" : "primary"}>
           {text}
         </Paragraph>
       );
+    case "logo":
+      return (
+        <LogoTitle colorCode={secondary ? "secondary" : "primary"}>
+          Natural Twenty
+        </LogoTitle>
+      );
+    default:
+      return assertNever(variant);
   }
 }

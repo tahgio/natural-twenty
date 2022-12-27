@@ -38,7 +38,6 @@ export enum ThemeFonts {
 
 //-----  APP -----//
 //---sizes
-
 export enum AppSizes {
   sm = "8px",
   md = "16px",
@@ -49,4 +48,11 @@ export enum AppSizes {
 
 export type GlobalThemeObj = {
   [key in ThemeProps]: Theme;
+};
+
+//----- Type Assert -----//
+export const assertNever = (value: never): never => {
+  throw new Error(
+    `Unhandled discriminated union member: ${JSON.stringify(value)}`
+  );
 };

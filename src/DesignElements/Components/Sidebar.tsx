@@ -15,14 +15,13 @@ const SSidebar = styled.div`
 const SideBarHeader = styled.div`
   width: 100%;
   height: 200px;
-  background-color: pink;
 `;
 
 export default function Sidebar() {
   return (
     <SSidebar>
       <SideBarHeader>
-        <Typo variant="h1" text="Natural Twenty" secondary />
+        <Typo variant="logo" secondary />
       </SideBarHeader>
     </SSidebar>
   );
