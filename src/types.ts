@@ -1,15 +1,16 @@
 //----- Theme -----//
+type ThemeElement = {
+  background: string;
+  headline: string;
+  paragraph: string;
+  btn: string;
+  btnTxt: string;
+};
+
 export interface Theme {
   elements: {
-    background: {
-      primary: string;
-      secondary: string;
-    };
-    headline: string;
-    paragraph: string;
-    btn: string;
-    btnTxt: string;
-    shadow: string;
+    primary: ThemeElement;
+    secondary: ThemeElement;
   };
   illustration: {
     stroke: string;
@@ -18,6 +19,7 @@ export interface Theme {
     secondary: string;
     tertiary: string;
   };
+  shadow: string;
   typo: ThemeFonts;
 }
 //--theme names

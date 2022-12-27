@@ -3,6 +3,7 @@ import { c } from "../GlobalStyles/constantStyles";
 
 interface ButtonProps {
   size?: "sm" | "md" | "lg" | "xl" | "xxl";
+  colorCode?: "primary" | "secondary";
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -18,6 +19,8 @@ export const Button = styled.button<ButtonProps>`
   cursor: pointer;
 
   //---thematic
-  background-color: ${(props) => props.theme.elements.btn};
-  color: ${(props) => props.theme.elements.btnTxt};
+  background-color: ${(props) =>
+    props.theme.elements[props.colorCode || "primary"].btn};
+  color: ${(props) =>
+    props.theme.elements[props.colorCode || "primary"].btnTxt};
 `;

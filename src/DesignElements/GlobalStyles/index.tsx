@@ -52,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
   ${ResetStyle}
 
   body {
-    background-color:  ${(props) => props.theme.elements.background.primary};
+    background-color:  ${(props) => props.theme.elements.primary.background};
     font-family: ${ThemeFonts.Hanken}, sans-serif;
 
   }
