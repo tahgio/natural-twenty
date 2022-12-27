@@ -4,7 +4,7 @@ import { assertNever, ThemeFonts } from "../../types";
 type TextProps = {
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span" | "logo";
   text?: string;
-  secondary: boolean;
+  secondary?: boolean;
 };
 
 type TextStylesProps = {
@@ -14,27 +14,25 @@ type TextStylesProps = {
 const Title = styled.span<TextStylesProps>`
   font-family: ${(p) => p.theme.typo};
   color: ${(p) => p.theme.elements[p.colorCode].headline};
-  font-weight: 600;
 `;
 
 const SubTitle = styled.span<TextStylesProps>`
   font-family: ${(p) => p.theme.typo};
   color: ${(p) => p.theme.elements[p.colorCode].paragraph};
-  font-weight: 500;
 `;
 
 const Paragraph = styled.span<TextStylesProps>`
   font-family: ${ThemeFonts.Hanken}, sans-serif;
   color: ${(p) => p.theme.elements[p.colorCode].paragraph};
-  font-weight: 400;
 `;
 
 const LogoTitle = styled.span<TextStylesProps>`
   font-family: ${ThemeFonts.Unbounded}, sans-serif;
   color: ${(p) => p.theme.elements[p.colorCode].headline};
   font-weight: 800;
-  font-size: 45px;
+  font-size: 35px;
   line-height: 35px;
+  text-align: center;
 `;
 
 export default function Typo({ variant, text, secondary }: TextProps) {

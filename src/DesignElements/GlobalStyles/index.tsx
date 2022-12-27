@@ -45,6 +45,11 @@ const ResetStyle = `
   #__next {
     isolation: isolate;
   }
+
+  a{
+    text-decoration: none;
+  }
+
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -53,8 +58,20 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color:  ${(props) => props.theme.elements.primary.background};
+    /* font Global */
     font-family: ${ThemeFonts.Hanken}, sans-serif;
-
+    h1 {
+      font-size: 42px;
+      font-weight: 900;
+    };
+    h2 {
+      font-size: 35px;
+      font-weight: 800;
+    }
+    h3 {
+      font-size: 25px;
+      font-weight: 700;
+    }
   }
 `;
 

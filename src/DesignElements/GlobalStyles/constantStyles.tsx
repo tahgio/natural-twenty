@@ -3,6 +3,8 @@ import { AppSizes } from "../../types";
 export const c = {
   sidebarWidth: "300px",
   space: {
+    xxs: AppSizes.xxs,
+    xs: AppSizes.xs,
     sm: AppSizes.sm,
     md: AppSizes.md,
     lg: AppSizes.lg,

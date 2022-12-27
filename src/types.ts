@@ -39,6 +39,8 @@ export enum ThemeFonts {
 //-----  APP -----//
 //---sizes
 export enum AppSizes {
+  xxs = "2px",
+  xs = "5px",
   sm = "8px",
   md = "16px",
   lg = "24px",

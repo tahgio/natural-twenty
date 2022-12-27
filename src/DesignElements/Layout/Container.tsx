@@ -1,29 +1,38 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const ContainerBasis = styled.div`
-  padding: 0 2em;
+type CtnProps = {
+  noPadding: boolean | undefined;
+};
+
+const ContainerBasis = styled.div<CtnProps>`
+  --gap-ctn: 10px;
+  padding: ${(p) => (p.noPadding ? "0" : "0 2em")};
   margin: 0 auto;
   display: var(--display-ctn);
   justify-content: var(--justify-ctn);
   align-items: var(--align-ctn);
-  gap: var(--gap-ctn, 10px);
+  gap: var(--gap-ctn);
   flex-direction: var(--dir-ctn);
   grid-template-columns: var(--gridCol-ctn);
   grid-template-rows: var(--gridRows-ctn);
-  grid-column-gap: var(--gridCgap-ctn);
-  grid-row-gap: var(--gridRgap-ctn);
+  column-gap: var(--gridCgap-ctn, var(--gap-ctn));
+  row-gap: var(--gridRgap-ctn, var(--gap-ctn));
 `;
 
 export function Container({
   children,
   display,
+  width,
+  noPadding,
 }: {
   children: ReactNode;
   display?: string;
+  width?: string;
+  noPadding?: boolean;
 }) {
   const arrDisplay: string[] | undefined = display
-    ? display[0] === "flex"
+    ? display.split(" ")[0] === "flex"
       ? display
           .split(" ")
           .map((e) =>
@@ -45,7 +54,9 @@ export function Container({
     : undefined;
   return (
     <ContainerBasis
+      noPadding={noPadding}
       style={{
+        //----- CSS Variables -----//
         "--display-ctn": arrDisplay ? arrDisplay[0] : undefined,
         //---flex
         "--justify-ctn":
@@ -65,10 +76,16 @@ export function Container({
             ? arrDisplay[4] || undefined
             : undefined,
         //--grid
-        "--gridCol-ctn": arrDisplay ? arrDisplay[1] : undefined,
-        "--gridRows-ctn": arrDisplay ? arrDisplay[2] : undefined,
-        "--gridCgap-ctn": arrDisplay ? arrDisplay[3] : undefined,
-        "--gridRgap-ctn": arrDisplay ? arrDisplay[4] : undefined,
+        "--gridCol-ctn":
+          arrDisplay && arrDisplay[0] === "grid" ? arrDisplay[1] : undefined,
+        "--gridRows-ctn":
+          arrDisplay && arrDisplay[0] === "grid" ? arrDisplay[2] : undefined,
+        "--gridCgap-ctn":
+          arrDisplay && arrDisplay[0] === "grid" ? arrDisplay[3] : undefined,
+        "--gridRgap-ctn":
+          arrDisplay && arrDisplay[0] === "grid" ? arrDisplay[4] : undefined,
+        //----- Styles -----//
+        width,
       }}
     >
       {children}

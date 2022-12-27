@@ -1,34 +1,20 @@
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
 import theme from "./DesignElements/theme";
 import GlobalStyle from "./DesignElements/GlobalStyles";
-import { Button } from "./DesignElements/Inputs/Button";
-import { ThemeProps } from "./types";
-import { Container } from "./DesignElements/Layout/Container";
-import { SectionWrapper, Wrapper } from "./DesignElements/Layout/Wrapper";
+import { Outlet } from "react-router-dom";
+import { SectionWrapper } from "./DesignElements/Layout/Wrapper";
 import Sidebar from "./DesignElements/Components/Sidebar";
+import { useState } from "react";
+import { ThemeProps } from "./types";
 
 function App() {
-  const [select, setSelect] = useState<ThemeProps>(ThemeProps.ranger);
-
+  const [select, SetSelect] = useState<ThemeProps>(ThemeProps.ranger);
   return (
     <ThemeProvider theme={theme[select]}>
       <GlobalStyle />
       <SectionWrapper>
-        <Sidebar />
-        <Wrapper>
-          <Container display="flex center center">
-            <Button
-              onClick={
-                select === ThemeProps.bard
-                  ? () => setSelect(ThemeProps.ranger)
-                  : () => setSelect(ThemeProps.bard)
-              }
-            >
-              Click
-            </Button>
-          </Container>
-        </Wrapper>
+        <Sidebar setSelect={SetSelect} currentTheme={select} />
+        <Outlet />
       </SectionWrapper>
     </ThemeProvider>
   );

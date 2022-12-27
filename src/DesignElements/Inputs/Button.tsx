@@ -4,6 +4,7 @@ import { c } from "../GlobalStyles/constantStyles";
 interface ButtonProps {
   size?: "sm" | "md" | "lg" | "xl" | "xxl";
   colorCode?: "primary" | "secondary";
+  noMargin?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -15,7 +16,7 @@ export const Button = styled.button<ButtonProps>`
   white-space: nowrap;
   text-decoration: none;
   padding: 0.25rem 0.5rem;
-  margin: 0.25rem;
+  margin: ${(p) => (p.noMargin ? "0px" : "0.25rem")};
   cursor: pointer;
 
   //---thematic
