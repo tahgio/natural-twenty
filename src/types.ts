@@ -23,7 +23,7 @@ export interface Theme {
   typo: ThemeFonts;
 }
 //--theme names
-export enum ThemeProps {
+export enum ThemeOptions {
   ranger,
   bard,
 }
@@ -49,7 +49,7 @@ export enum AppSizes {
 }
 
 export type GlobalThemeObj = {
-  [key in ThemeProps]: Theme;
+  [key in ThemeOptions]: Theme;
 };
 
 //----- Type Assert -----//

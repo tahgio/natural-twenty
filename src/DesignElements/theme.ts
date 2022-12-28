@@ -1,7 +1,7 @@
-import { GlobalThemeObj, ThemeFonts, ThemeProps } from "../types";
+import { GlobalThemeObj, ThemeFonts, ThemeOptions } from "../types";
 
 const theme: GlobalThemeObj = {
-  [ThemeProps.ranger]: {
+  [ThemeOptions.ranger]: {
     elements: {
       primary: {
         background: "#004643",
@@ -28,7 +28,7 @@ const theme: GlobalThemeObj = {
     shadow: "6px 0px 12px 0px rgba(0, 0, 0, 0.5)",
     typo: ThemeFonts.Mulish,
   },
-  [ThemeProps.bard]: {
+  [ThemeOptions.bard]: {
     elements: {
       primary: {
         background: "#fffffe",

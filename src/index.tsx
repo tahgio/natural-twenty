@@ -9,10 +9,15 @@ import Monsters from "./Pages/Monsters";
 import Races from "./Pages/Races";
 import Spells from "./Pages/Spells";
 import Templates from "./Pages/Templates";
+import { reducer, StateProvider } from "./State";
 
 const router = createBrowserRouter([
   {
-    element: <App />,
+    element: (
+      <StateProvider reducer={reducer}>
+        <App />
+      </StateProvider>
+    ),
     children: [
       { path: "/", element: <HomePage /> },
       { path: "monsters", element: <Monsters /> },

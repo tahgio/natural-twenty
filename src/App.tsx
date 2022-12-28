@@ -1,22 +1,48 @@
-import { ThemeProvider } from "styled-components";
-import theme from "./DesignElements/theme";
+//---Libs
 import GlobalStyle from "./DesignElements/GlobalStyles";
 import { Outlet } from "react-router-dom";
+import axios from "axios";
+//--State
+//---Components
 import { SectionWrapper } from "./DesignElements/Layout/Wrapper";
 import Sidebar from "./DesignElements/Components/Sidebar";
-import { useState } from "react";
-import { ThemeProps } from "./types";
+import { useEffect } from "react";
+import { getInitOptions } from "./Graphql/axios";
+import { setInitData, useStateValue } from "./State";
 
 function App() {
-  const [select, SetSelect] = useState<ThemeProps>(ThemeProps.ranger);
+  const [, dispatch] = useStateValue();
+  useEffect(() => {
+    const fetchInitData = async () => {
+      try {
+        const reduceData = (memo: string[], element: { name: string }) => {
+          return memo.concat(element.name);
+        };
+        const {
+          data: { data: initData },
+        } = await axios.request(getInitOptions);
+        dispatch(
+          setInitData({
+            monsters: initData.monsters.reduce(reduceData, []),
+            spells: initData.spells.reduce(reduceData, []),
+            races: initData.races.reduce(reduceData, []),
+          })
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchInitData();
+  }, []);
+
   return (
-    <ThemeProvider theme={theme[select]}>
+    <>
       <GlobalStyle />
       <SectionWrapper>
-        <Sidebar setSelect={SetSelect} currentTheme={select} />
+        <Sidebar />
         <Outlet />
       </SectionWrapper>
-    </ThemeProvider>
+    </>
   );
 }
 

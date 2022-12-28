@@ -1,20 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
 //-----Libs
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 //-----Types & Constants
-import { ThemeProps } from "../../types";
+import { ThemeOptions } from "../../types";
 import { c } from "../GlobalStyles/constantStyles";
 //-----Components
 import Typo from "../DataDisplay/Typo";
 import { Button } from "../Inputs/Button";
 import { Container } from "../Layout/Container";
 import { Divider } from "./Divider";
-
-type SideBarProps = {
-  setSelect: Dispatch<SetStateAction<ThemeProps>>;
-  currentTheme: ThemeProps;
-};
+import { setTheme, useStateValue } from "../../State";
 
 const SSidebar = styled.div`
   width: 300px;
@@ -109,7 +104,8 @@ const SideBarBtn = ({
   </NavLink>
 );
 
-export default function Sidebar({ setSelect, currentTheme }: SideBarProps) {
+export default function Sidebar() {
+  const [{ theme }, dispatch] = useStateValue();
   return (
     <SSidebar>
       <SideBarHeader>
@@ -135,13 +131,13 @@ export default function Sidebar({ setSelect, currentTheme }: SideBarProps) {
         <Button
           noMargin
           onClick={
-            currentTheme === ThemeProps.bard
-              ? () => setSelect(ThemeProps.ranger)
-              : () => setSelect(ThemeProps.bard)
+            theme === ThemeOptions.bard
+              ? () => dispatch(setTheme(ThemeOptions.ranger))
+              : () => dispatch(setTheme(ThemeOptions.bard))
           }
         >
           Change Class:{" "}
-          <Typo variant="span" secondary text={`${ThemeProps[currentTheme]}`} />
+          <Typo variant="span" secondary text={`${ThemeOptions[theme]}`} />
         </Button>
       </Container>
     </SSidebar>
