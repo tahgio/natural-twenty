@@ -19,6 +19,4 @@ export const getInitOptions: AxiosRequestConfig = {
             }
         }`,
   },
-  maxContentLength: 100000000,
-  maxBodyLength: 100000000,
 };
