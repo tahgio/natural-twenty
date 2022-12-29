@@ -1,55 +1,13 @@
 import Typo from "../DesignElements/DataDisplay/Typo";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Tag } from "../DesignElements/Inputs/Tag";
 import { Container } from "../DesignElements/Layout/Container";
 import { Wrapper } from "../DesignElements/Layout/Wrapper";
 import { ReactComponent as MonsterIcon } from "../Assets/dndMonsterIcon.svg";
 import { useStateValue } from "../State";
-import styled from "styled-components";
-import { ThemeFonts } from "../types";
-
-const Card = styled.div`
-  background-color: ${(p) => p.theme.illustration.secondary};
-  padding: 0.7em 0.7em;
-  border-radius: 3px;
-  font-size: 15px;
-  font-weight: 500;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.5);
-  transition: 0.3s;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
-    transform: translateY(2px) translateX(2px);
-    transition: 0.3s;
-  }
-`;
-
-const SearchInput = styled.form`
-  box-shadow: inset 4px 4px rgba(0, 0, 0, 0.5);
-  background-color: ${(p) => p.theme.illustration.main};
-  padding: 7px 6px 3px 10px;
-  border: 2px solid ${(p) => p.theme.illustration.highlight};
-  border-radius: 5px;
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-start;
-  gap: 6px;
-  width: 300px;
-  & input {
-    all: unset;
-    width: 82%;
-    padding-left: 4px;
-    &::placeholder {
-      color: ${(p) => p.theme.illustration.stroke};
-      font-family: ${ThemeFonts.Hanken}, sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-    }
-  }
-  & .fa-circle-xmark {
-    cursor: pointer;
-  }
-`;
+import { useNavigate } from "react-router-dom";
+import { SearchInput } from "../DesignElements/Inputs/SearchInput";
+import { CardButton } from "../DesignElements/Inputs/Card";
 
 export default function Monsters() {
   const [
@@ -58,10 +16,16 @@ export default function Monsters() {
     },
   ] = useStateValue();
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const filteredMonsters = useMemo(() => {
     return monsters.filter((e: string) => e.toLowerCase().includes(search));
   }, [search]);
+
+  const handleCardClick = useCallback((name: string) => {
+    const parsedName = name.toLowerCase().split(" ").join("-");
+    navigate(`/monsters/${parsedName}`);
+  }, []);
   return (
     <Wrapper>
       <Container display="flex start start 30 column" width="100%">
@@ -74,7 +38,7 @@ export default function Monsters() {
             margin="50px 0 0"
             width="55%"
           >
-            <Tag>Find all monsters here</Tag>
+            <Tag>Find all stats here</Tag>
             <Typo variant="h1" text="Monsters" />
             <Typo
               variant="h5"
@@ -106,9 +70,9 @@ export default function Monsters() {
         >
           {filteredMonsters.length > 0 ? (
             filteredMonsters.map((e, i) => (
-              <Card key={`${e}_${i}`}>
+              <CardButton key={`${e}_${i}`} onClick={() => handleCardClick(e)}>
                 {i}. {e}
-              </Card>
+              </CardButton>
             ))
           ) : (
             <Typo variant="h1" text="Nothing found!" icon="ghost" />

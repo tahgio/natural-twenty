@@ -1,9 +1,23 @@
 import styled from "styled-components";
 
-export const Tag = styled.div`
-  color: ${(p) => p.theme.illustration.secondary};
-  border: ${(p) => `1px solid ${p.theme.illustration.secondary} `};
+type TagProps = {
+  altColor?: boolean;
+  bold?: boolean;
+};
+
+export const Tag = styled.div<TagProps>`
+  color: ${(p) =>
+    !p.altColor
+      ? p.theme.illustration.secondary
+      : p.theme.illustration.tertiary};
+  border: ${(p) =>
+    `${p.bold ? "2px" : "1px"} solid ${
+      !p.altColor
+        ? p.theme.illustration.secondary
+        : p.theme.illustration.tertiary
+    } `};
   padding: 0.2em 0.7em;
   border-radius: 2px;
-  font-weight: 300;
+  font-weight: ${(p) => (p.bold ? 700 : 300)};
+  width: fit-content;
 `;
