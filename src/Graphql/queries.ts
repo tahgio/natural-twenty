@@ -1,4 +1,4 @@
-import { gql } from "../../src/__generated__/gql";
+import { gql } from "@apollo/client";
 
 export const GET_SINGLE_MONSTER = gql(/* GraphQL */ `
   query getSingleMonster($index: String) {
