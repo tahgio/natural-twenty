@@ -19,6 +19,11 @@ const ContainerBasis = styled.div<CtnProps>`
   grid-template-rows: var(--gridRows-ctn);
   column-gap: var(--gridCgap-ctn, var(--gap-ctn));
   row-gap: var(--gridRgap-ctn, var(--gap-ctn));
+  svg {
+    path {
+      fill: ${(p) => p.theme.illustration.stroke};
+    }
+  }
 `;
 
 export function Container({

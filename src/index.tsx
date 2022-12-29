@@ -7,6 +7,7 @@ import CustomItems from "./Pages/CustomItems";
 import HomePage from "./Pages/HomePage";
 import Monsters from "./Pages/Monsters";
 import Races from "./Pages/Races";
+import SingleMonster from "./Pages/SingleMonster";
 import Spells from "./Pages/Spells";
 import Templates from "./Pages/Templates";
 import { reducer, StateProvider } from "./State";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "monsters", element: <Monsters /> },
+      { path: "monsters", element: <SingleMonster /> },
       { path: "spells", element: <Spells /> },
       { path: "races", element: <Races /> },
       { path: "templates", element: <Templates /> },
