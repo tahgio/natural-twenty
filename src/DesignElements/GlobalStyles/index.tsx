@@ -72,7 +72,16 @@ const GlobalStyle = createGlobalStyle`
       font-size: 25px;
       font-weight: 700;
     }
+    h4 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    h5 {
+      font-size: 15px;
+      font-weight: 400;
+    }
   }
+
 `;
 
 export default GlobalStyle;

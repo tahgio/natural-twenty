@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   margin-right: auto;
   margin-left: auto;
   width: calc(100% - 300px);
+  max-width: 1200px;
   padding: 10px;
 `;
 

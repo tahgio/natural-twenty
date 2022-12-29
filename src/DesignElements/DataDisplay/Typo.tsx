@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { assertNever, ThemeFonts } from "../../types";
+import { c } from "../GlobalStyles/constantStyles";
 
 type TextProps = {
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span" | "logo";
   text?: string;
   secondary?: boolean;
+  icon?: string;
 };
 
 type TextStylesProps = {
@@ -14,11 +16,13 @@ type TextStylesProps = {
 const Title = styled.span<TextStylesProps>`
   font-family: ${(p) => p.theme.typo};
   color: ${(p) => p.theme.elements[p.colorCode].headline};
+  margin: ${`${c.space.xs} 0`};
 `;
 
 const SubTitle = styled.span<TextStylesProps>`
   font-family: ${(p) => p.theme.typo};
   color: ${(p) => p.theme.elements[p.colorCode].paragraph};
+  margin: ${`${c.space.xs} 0`};
 `;
 
 const Paragraph = styled.span<TextStylesProps>`
@@ -35,13 +39,13 @@ const LogoTitle = styled.span<TextStylesProps>`
   text-align: center;
 `;
 
-export default function Typo({ variant, text, secondary }: TextProps) {
+export default function Typo({ variant, text, secondary, icon }: TextProps) {
   switch (variant) {
     case "h1":
     case "h2":
       return (
         <Title as={variant} colorCode={secondary ? "secondary" : "primary"}>
-          {text}
+          {text} {icon ? <i className={`fa-solid fa-${icon}`}></i> : null}
         </Title>
       );
     case "h3":
@@ -49,19 +53,19 @@ export default function Typo({ variant, text, secondary }: TextProps) {
     case "h5":
       return (
         <SubTitle as={variant} colorCode={secondary ? "secondary" : "primary"}>
-          {text}
+          {text} {icon ? <i className={`fa-solid fa-${icon}`}></i> : null}
         </SubTitle>
       );
     case "p":
       return (
         <Paragraph as={variant} colorCode={secondary ? "secondary" : "primary"}>
-          {text}
+          {text} {icon ? <i className={`fa-solid fa-${icon}`}></i> : null}
         </Paragraph>
       );
     case "span":
       return (
         <Paragraph colorCode={secondary ? "secondary" : "primary"}>
-          {text}
+          {text} {icon ? <i className={`fa-solid fa-${icon}`}></i> : null}
         </Paragraph>
       );
     case "logo":

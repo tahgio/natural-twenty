@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 type CtnProps = {
   noPadding: boolean | undefined;
+  margin?: string;
 };
 
 const ContainerBasis = styled.div<CtnProps>`
   --gap-ctn: 10px;
   padding: ${(p) => (p.noPadding ? "0" : "0 2em")};
-  margin: 0 auto;
+  margin: ${(p) => (p.margin ? p.margin : "0 auto")};
   display: var(--display-ctn);
   justify-content: var(--justify-ctn);
   align-items: var(--align-ctn);
@@ -25,11 +26,13 @@ export function Container({
   display,
   width,
   noPadding,
+  margin,
 }: {
   children: ReactNode;
   display?: string;
   width?: string;
   noPadding?: boolean;
+  margin?: string;
 }) {
   const arrDisplay: string[] | undefined = display
     ? display.split(" ")[0] === "flex"
@@ -54,6 +57,7 @@ export function Container({
     : undefined;
   return (
     <ContainerBasis
+      margin={margin}
       noPadding={noPadding}
       style={{
         //----- CSS Variables -----//
