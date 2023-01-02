@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   schema: "https://www.dnd5eapi.co/graphql",
   documents: ["src/**/*.tsx"],
   generates: {
-    "./src/__generated__/": {
+    "./src/Graphql/CodeGen/": {
       preset: "client",
       plugins: [],
       presetConfig: {

@@ -7,11 +7,13 @@ import Typo from "../DesignElements/DataDisplay/Typo";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "../DesignElements/Inputs/Button";
 import { useQuery } from "@apollo/client";
-import { GET_SINGLE_MONSTER } from "../Graphql/queries";
 import { Card } from "../DesignElements/Inputs/Card";
-import { TypedQueryDocumentNode } from "graphql";
+import { GET_SINGLE_MONSTER } from "../Graphql/queries";
+import { Divider } from "../DesignElements/Components/Divider";
 
-//const baseUrl = "https://www.dnd5eapi.co";
+const parseNameHelper = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
 
 export default function SingleMonster() {
   const { monsterId } = useParams();
@@ -25,12 +27,9 @@ export default function SingleMonster() {
         : undefined,
     []
   );
-  const { loading, error, data } = useQuery(
-    GET_SINGLE_MONSTER as TypedQueryDocumentNode,
-    {
-      variables: { index: monsterId },
-    }
-  );
+  const { loading, error, data } = useQuery(GET_SINGLE_MONSTER, {
+    variables: { index: monsterId },
+  });
   console.log(loading, error, data?.monster);
 
   return (
@@ -65,13 +64,64 @@ export default function SingleMonster() {
         <Container>
           <Card width="800px">
             {!loading && !error && data?.monster ? (
-              <>
+              <Container margin="0" noPadding>
                 <Tag altColor bold>
-                  {data.monster.size}
+                  {parseNameHelper(data.monster.size)} /{" "}
+                  {parseNameHelper(data.monster.type)}
                 </Tag>
 
                 <Typo variant="h2" text={parsedName} />
-              </>
+                <Container
+                  display="grid/1fr 1fr 1fr 1fr 1fr 1fr/50px/10px/20px"
+                  width="80%"
+                  margin="0"
+                  noPadding
+                >
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Str: {data.monster.strength}
+                  </Container>
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Dex: {data.monster.dexterity}
+                  </Container>
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Con: {data.monster.constitution}
+                  </Container>
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Int: {data.monster.intelligence}
+                  </Container>
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Wis: {data.monster.wisdom}
+                  </Container>
+                  <Container
+                    display="flex center center 5 row"
+                    margin="0"
+                    noPadding
+                  >
+                    Cha: {data.monster.charisma}
+                  </Container>
+                </Container>
+                <Divider />
+              </Container>
             ) : loading ? (
               <Typo variant="h1" icon="spinner" />
             ) : (
