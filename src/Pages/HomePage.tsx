@@ -6,6 +6,7 @@ import HomePageBGTop from "../Assets/HomepageDragon.png";
 import styled from "styled-components";
 import { Button } from "../DesignElements/Inputs/Button";
 import { Link } from "react-router-dom";
+import { Tag } from "../DesignElements/Inputs/Tag";
 
 type BlendProps = {
   inset: string;
@@ -28,14 +29,6 @@ const HpageImg = styled.img<HPImgProps>`
   z-index: -1;
 `;
 
-const Tag = styled.div`
-  color: ${(p) => p.theme.illustration.secondary};
-  border: ${(p) => `1px solid ${p.theme.illustration.secondary} `};
-  padding: 0.2em 0.7em;
-  border-radius: 2px;
-  font-weight: 300;
-`;
-
 export default function HomePage() {
   return (
     <Wrapper>
@@ -55,7 +48,7 @@ export default function HomePage() {
             margin="10px 0"
             display="flex start start 10 row"
             width="100%"
-            noPadding
+            padding="0"
           >
             <Link to="monsters">
               {" "}

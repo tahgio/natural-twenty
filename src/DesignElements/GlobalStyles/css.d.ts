@@ -1,4 +1,5 @@
 import "csstype";
+import {} from "styled-components/cssprop";
 
 declare module "csstype" {
   export interface Properties {

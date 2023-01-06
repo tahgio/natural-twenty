@@ -15,6 +15,45 @@ const parseNameHelper = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
+const statsToBonus = (num: number): string => {
+  const parsedNumber = num % 2 === 1 ? num - 1 : num;
+  const result = (parsedNumber - 10) / 2;
+  return result <= 0 ? `${result}` : `+${result}`;
+};
+
+function Stats({
+  stat,
+  icon,
+  title,
+}: {
+  stat: number;
+  icon: string;
+  title: string;
+}) {
+  return (
+    <Container display="flex start center 0 column" margin="0" padding="0px">
+      <i
+        className={`stat fa-solid fa-${icon}`}
+        style={{
+          padding: 0,
+          margin: 5,
+          height: "0px",
+          fontSize: "25px",
+          lineHeight: 0,
+        }}
+      ></i>
+      <Typo lineHeight={0} variant="h3" text={title} secondary />
+      <Typo
+        className="txt-tert"
+        lineHeight={0}
+        variant="h4"
+        text={`${stat} (${statsToBonus(stat)})`}
+        secondary
+      />
+    </Container>
+  );
+}
+
 export default function SingleMonster() {
   const { monsterId } = useParams();
   const parsedName = useMemo(
@@ -30,13 +69,12 @@ export default function SingleMonster() {
   const { loading, error, data } = useQuery(GET_SINGLE_MONSTER, {
     variables: { index: monsterId },
   });
-  console.log(loading, error, data?.monster);
 
   return (
     <Wrapper>
       <Container display="flex start start 30 column" width="100%">
-        <Container display="flex start start 10 row" noPadding width="100%">
-          <Container width="20%" margin="50px 0 0" noPadding>
+        <Container display="flex start start 10 row" padding="0" width="100%">
+          <Container width="20%" margin="50px 0 0" padding="0">
             <MonsterIcon />
           </Container>
           <Container
@@ -64,61 +102,65 @@ export default function SingleMonster() {
         <Container>
           <Card width="800px">
             {!loading && !error && data?.monster ? (
-              <Container margin="0" noPadding>
-                <Tag altColor bold>
-                  {parseNameHelper(data.monster.size)} /{" "}
-                  {parseNameHelper(data.monster.type)}
-                </Tag>
-
-                <Typo variant="h2" text={parsedName} />
+              <Container margin="0" padding="0">
+                <Container
+                  margin="0"
+                  padding="0"
+                  display="flex center center 30 row"
+                >
+                  <Tag altColor bold>
+                    {parseNameHelper(data.monster.size)} /{" "}
+                    {parseNameHelper(data.monster.type)}
+                  </Tag>
+                  <Container
+                    margin="0"
+                    padding="0"
+                    display="flex center center 5 row"
+                  >
+                    <Tag filled altColor bold>
+                      AC {data.monster.armor_class}
+                    </Tag>
+                    <Tag filled altColor bold>
+                      HP {data.monster.hit_points} (
+                      {data.monster.hit_points_roll})
+                    </Tag>
+                    <Tag filled altColor bold>
+                      SPD {data.monster.speed.walk}
+                    </Tag>
+                  </Container>
+                </Container>
                 <Container
                   display="grid/1fr 1fr 1fr 1fr 1fr 1fr/50px/10px/20px"
-                  width="80%"
-                  margin="0"
-                  noPadding
+                  width="100%"
+                  margin="2em 0"
+                  padding="0"
                 >
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Str: {data.monster.strength}
-                  </Container>
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Dex: {data.monster.dexterity}
-                  </Container>
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Con: {data.monster.constitution}
-                  </Container>
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Int: {data.monster.intelligence}
-                  </Container>
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Wis: {data.monster.wisdom}
-                  </Container>
-                  <Container
-                    display="flex center center 5 row"
-                    margin="0"
-                    noPadding
-                  >
-                    Cha: {data.monster.charisma}
-                  </Container>
+                  <Stats
+                    stat={data.monster.strength}
+                    icon="hand-fist"
+                    title="STR"
+                  />
+                  <Stats
+                    stat={data.monster.dexterity}
+                    icon="person-running"
+                    title="DEX"
+                  />
+                  <Stats
+                    stat={data.monster.constitution}
+                    icon="dumbbell"
+                    title="CON"
+                  />
+                  <Stats
+                    stat={data.monster.intelligence}
+                    icon="glasses"
+                    title="INT"
+                  />
+                  <Stats stat={data.monster.wisdom} icon="brain" title="WIS" />
+                  <Stats
+                    stat={data.monster.charisma}
+                    icon="face-laugh-wink"
+                    title="CHA"
+                  />
                 </Container>
                 <Divider />
               </Container>

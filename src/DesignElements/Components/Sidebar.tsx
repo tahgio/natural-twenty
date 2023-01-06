@@ -95,7 +95,7 @@ const SideBarBtn = ({
     className={({ isActive }) => (isActive ? "active-route" : undefined)}
   >
     <Container display="flex between center" width="100%">
-      <Container display="flex start center 20" width="90%" noPadding>
+      <Container display="flex start center 20" width="90%" padding="0">
         <i className={`tert fa-solid fa-${icon}`}></i>
         <Typo variant="h4" secondary text={text} />
       </Container>
@@ -127,7 +127,7 @@ export default function Sidebar() {
         <SideBarBtn text="Custom Items" icon="ring" to="custom-items" />
       </SideBarBody>
       <Divider />
-      <Container display="flex between center" noPadding>
+      <Container display="flex between center" padding="0">
         <Button
           noMargin
           onClick={

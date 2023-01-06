@@ -29,8 +29,8 @@ export default function Monsters() {
   return (
     <Wrapper>
       <Container display="flex start start 30 column" width="100%">
-        <Container display="flex start start 10 row" noPadding width="100%">
-          <Container width="20%" margin="50px 0 0" noPadding>
+        <Container display="flex start start 10 row" padding="0" width="100%">
+          <Container width="20%" margin="50px 0 0" padding="0">
             <MonsterIcon />
           </Container>
           <Container
@@ -46,7 +46,7 @@ export default function Monsters() {
             />
           </Container>
         </Container>
-        <Container noPadding display="flex start start" margin="0">
+        <Container padding="0" display="flex start start" margin="0">
           <SearchInput>
             <i className="fa-solid fa-magnifying-glass"></i>
             <input
@@ -66,7 +66,7 @@ export default function Monsters() {
         <Container
           display="grid/1fr 1fr 1fr 1fr/auto/20px/20px"
           margin=" 10px 0 0 "
-          noPadding
+          padding="0"
         >
           {filteredMonsters.length > 0 ? (
             filteredMonsters.map((e, i) => (

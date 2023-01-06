@@ -2,13 +2,13 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 type CtnProps = {
-  noPadding: boolean | undefined;
+  padding?: string;
   margin?: string;
 };
 
 const ContainerBasis = styled.div<CtnProps>`
   --gap-ctn: 10px;
-  padding: ${(p) => (p.noPadding ? "0" : "0 2em")};
+  padding: ${(p) => (p.padding ? p.padding : "0 2em")};
   margin: ${(p) => (p.margin ? p.margin : "0 auto")};
   display: var(--display-ctn);
   justify-content: var(--justify-ctn);
@@ -24,19 +24,22 @@ const ContainerBasis = styled.div<CtnProps>`
       fill: ${(p) => p.theme.illustration.stroke};
     }
   }
+  .txt-tert {
+    color: ${(p) => p.theme.illustration.tertiary};
+  }
 `;
 
 export function Container({
   children,
   display,
   width,
-  noPadding,
+  padding,
   margin,
 }: {
   children: ReactNode;
   display?: string;
   width?: string;
-  noPadding?: boolean;
+  padding?: string;
   margin?: string;
 }) {
   const arrDisplay: string[] | undefined = display
@@ -63,7 +66,7 @@ export function Container({
   return (
     <ContainerBasis
       margin={margin}
-      noPadding={noPadding}
+      padding={padding}
       style={{
         //----- CSS Variables -----//
         "--display-ctn": arrDisplay ? arrDisplay[0] : undefined,
