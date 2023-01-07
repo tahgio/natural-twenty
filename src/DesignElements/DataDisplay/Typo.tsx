@@ -3,7 +3,7 @@ import { assertNever, ThemeFonts } from "../../types";
 import { c } from "../GlobalStyles/constantStyles";
 
 type TextProps = {
-  variant: "h1" | "h2" | "h3" | "h4" | "h5" | "p" | "span" | "logo";
+  variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "logo";
   text?: string;
   secondary?: boolean;
   icon?: string;
@@ -70,6 +70,7 @@ export default function Typo({
     case "h3":
     case "h4":
     case "h5":
+    case "h6":
       return (
         <SubTitle
           as={variant}

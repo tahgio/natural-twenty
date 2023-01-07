@@ -3,7 +3,7 @@ type CardProps = {
   width?: string;
 };
 export const Card = styled.div<CardProps>`
-  background-color: ${(p) => p.theme.illustration.secondary};
+  background-color: ${(p) => p.theme.elements.secondary.background};
   padding: 1.5em 2em;
   border-radius: 3px;
   font-size: 15px;

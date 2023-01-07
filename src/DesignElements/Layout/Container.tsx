@@ -27,6 +27,9 @@ const ContainerBasis = styled.div<CtnProps>`
   .txt-tert {
     color: ${(p) => p.theme.illustration.tertiary};
   }
+  .txt-str {
+    color: ${(p) => p.theme.illustration.stroke};
+  }
 `;
 
 export function Container({

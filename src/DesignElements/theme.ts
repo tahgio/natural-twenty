@@ -50,7 +50,7 @@ const theme: GlobalThemeObj = {
       main: "#fffffe",
       highlight: "#00ebc7",
       secondary: "#ff5470",
-      tertiary: "#fde24f",
+      tertiary: "#E3C219",
     },
     shadow: "3px 0px 10px 0px rgba(0, 33, 77, 0.3)",
     typo: ThemeFonts.Montagu,

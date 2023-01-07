@@ -10,6 +10,7 @@ import { useQuery } from "@apollo/client";
 import { Card } from "../DesignElements/Inputs/Card";
 import { GET_SINGLE_MONSTER } from "../Graphql/queries";
 import { Divider } from "../DesignElements/Components/Divider";
+//import { GetSingleMonsterQuery, Monster } from "../Graphql/CodeGen/graphql";
 
 const parseNameHelper = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -19,6 +20,11 @@ const statsToBonus = (num: number): string => {
   const parsedNumber = num % 2 === 1 ? num - 1 : num;
   const result = (parsedNumber - 10) / 2;
   return result <= 0 ? `${result}` : `+${result}`;
+};
+
+const parseProficiency = (str: string): string => {
+  const index = str.indexOf(":");
+  return str.substring(index + 2, index + 5);
 };
 
 function Stats({
@@ -33,7 +39,7 @@ function Stats({
   return (
     <Container display="flex start center 0 column" margin="0" padding="0px">
       <i
-        className={`stat fa-solid fa-${icon}`}
+        className={`txt-str fa-solid fa-${icon}`}
         style={{
           padding: 0,
           margin: 5,
@@ -42,9 +48,14 @@ function Stats({
           lineHeight: 0,
         }}
       ></i>
-      <Typo lineHeight={0} variant="h3" text={title} secondary />
       <Typo
         className="txt-tert"
+        lineHeight={0}
+        variant="h3"
+        text={title}
+        secondary
+      />
+      <Typo
         lineHeight={0}
         variant="h4"
         text={`${stat} (${statsToBonus(stat)})`}
@@ -53,6 +64,44 @@ function Stats({
     </Container>
   );
 }
+
+function Attribute({ tag, value }: { tag: string; value: number | string }) {
+  return (
+    <Container
+      margin="0"
+      padding="0"
+      width="fit-content"
+      display="flex center baseline 0 row"
+    >
+      <Tag small altColor filled>
+        <Typo secondary variant="h6" text={tag} lineHeight={1} />
+        {value}
+      </Tag>
+    </Container>
+  );
+}
+
+// type MResistanceProps = Monster["condition_immunities"] | Monster["damage_immunities"] | Monster["damage_resistances"] | Monster["damage_vulnerabilities"]
+
+// function MonsterResistance({data} : {data: MResistanceProps}) : ReactElement | void {
+//   data.length > 0 ? (
+//     <Container
+//       margin="0"
+//       padding="0"
+//       display="flex start center 10 row"
+//       width="100%"
+//     >
+//       <Typo secondary variant="h4" text="Proficiencies:" lineHeight={1} />
+//       {data.map((e, i) => (
+//         <Attribute
+//           key={`${e.toString()}_${i}`}
+//           tag={parseProficiency(e)}
+//           value={`+ ${e}`}
+//         />
+//       ))}
+//     </Container>
+//   ) : null;
+// }
 
 export default function SingleMonster() {
   const { monsterId } = useParams();
@@ -106,7 +155,8 @@ export default function SingleMonster() {
                 <Container
                   margin="0"
                   padding="0"
-                  display="flex center center 30 row"
+                  width="100%"
+                  display="flex between center 30 row"
                 >
                   <Tag altColor bold>
                     {parseNameHelper(data.monster.size)} /{" "}
@@ -117,15 +167,15 @@ export default function SingleMonster() {
                     padding="0"
                     display="flex center center 5 row"
                   >
-                    <Tag filled altColor bold>
-                      AC {data.monster.armor_class}
+                    <Tag filled altColor>
+                      AC <strong>{data.monster.armor_class}</strong>
                     </Tag>
-                    <Tag filled altColor bold>
-                      HP {data.monster.hit_points} (
+                    <Tag filled altColor>
+                      HP <strong>{data.monster.hit_points}</strong> (
                       {data.monster.hit_points_roll})
                     </Tag>
-                    <Tag filled altColor bold>
-                      SPD {data.monster.speed.walk}
+                    <Tag filled altColor>
+                      SPD <strong>{data.monster.speed.walk}</strong>
                     </Tag>
                   </Container>
                 </Container>
@@ -163,9 +213,110 @@ export default function SingleMonster() {
                   />
                 </Container>
                 <Divider />
+                <Container
+                  margin="0"
+                  padding="0"
+                  display="flex start end 10 row"
+                  width="100%"
+                >
+                  <Typo
+                    secondary
+                    variant="h4"
+                    text="Senses:"
+                    lineHeight={0.5}
+                  />
+                  <Container
+                    margin="0"
+                    padding="0"
+                    width="fit-content"
+                    display="flex center end 20 row"
+                  >
+                    <Attribute
+                      tag="Passive Perception"
+                      value={data.monster.senses.passive_perception}
+                    />
+                    {data.monster.senses.blindsight ? (
+                      <Attribute
+                        tag="Blind Sight"
+                        value={data.monster.senses.blindsight}
+                      />
+                    ) : null}
+                    {data.monster.senses.darkvision ? (
+                      <Attribute
+                        tag="Dark Vision"
+                        value={data.monster.senses.darkvision}
+                      />
+                    ) : null}
+                    {data.monster.senses.tremorsense ? (
+                      <Attribute
+                        tag="Tremor Sense"
+                        value={data.monster.senses.tremorsense}
+                      />
+                    ) : null}
+                    {data.monster.senses.truesight ? (
+                      <Attribute
+                        tag="True Sight"
+                        value={data.monster.senses.truesight}
+                      />
+                    ) : null}
+                  </Container>
+                </Container>
+                <Container
+                  margin="0"
+                  padding="0"
+                  display="flex start center 10 row"
+                  width="100%"
+                >
+                  <Typo
+                    secondary
+                    variant="h4"
+                    text="Challenge:"
+                    lineHeight={1}
+                  />
+                  <Tag small altColor filled>
+                    <Typo
+                      secondary
+                      variant="h6"
+                      text={`${data.monster.challenge_rating} (${data.monster.xp} xp)`}
+                      lineHeight={1}
+                    />
+                  </Tag>
+
+                  <Typo secondary variant="h4" text="Languages:" />
+                  <Tag small altColor filled>
+                    <Typo
+                      secondary
+                      variant="h6"
+                      text={data.monster.languages || "none"}
+                      lineHeight={1}
+                    />
+                  </Tag>
+                </Container>
+                {data.monster.proficiencies.length > 0 ? (
+                  <Container
+                    margin="0"
+                    padding="0"
+                    display="flex start center 10 row"
+                    width="100%"
+                  >
+                    <Typo
+                      secondary
+                      variant="h4"
+                      text="Proficiencies:"
+                      lineHeight={1}
+                    />
+                    {data.monster.proficiencies.map((e, i) => (
+                      <Attribute
+                        key={`${e.proficiency.name}_${e.value}_${i}`}
+                        tag={parseProficiency(e.proficiency.name)}
+                        value={`+ ${e.value}`}
+                      />
+                    ))}
+                  </Container>
+                ) : null}
               </Container>
             ) : loading ? (
-              <Typo variant="h1" icon="spinner" />
+              <Typo secondary variant="h1" icon="spinner" />
             ) : (
               <Typo
                 variant="h1"
